@@ -1,6 +1,6 @@
 const notes = require('express').Router();
 const uuid = require('../utils/uuid')
-const { readFromFile, readAndAppend } = require('../utils/fsUtils')
+const { readFromFile, readAndAppend, writeToFile } = require('../utils/fsUtils')
 
 
 notes.get('/', (req, res) => {
@@ -25,6 +25,15 @@ notes.post('/', (req, res) => {
     }
 });
 
+notes.delete('/:id', (req, res) => {
+    readFromFile('./db/db.json').then((data) => {const currentNotes = (JSON.parse(data))
+    console.log(currentNotes)
+    const toDelete = req.params.id
+    const newNotes = currentNotes.filter((note) => note.id !== toDelete
+    )
+    console.log(toDelete)
+    writeToFile('./db/db.json', newNotes)
+})})
 
 
 module.exports = notes;
