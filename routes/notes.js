@@ -33,6 +33,7 @@ notes.delete('/:id', (req, res) => {
     )
     console.log(toDelete)
     writeToFile('./db/db.json', newNotes)
+    res.json(newNotes)
 })})
 
 
